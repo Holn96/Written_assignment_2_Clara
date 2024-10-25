@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algorithm</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <h1>Algorithm</h1>
+
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+
+    <script type="text/javascript">
+        dfd.readCSV("./cleaned_data_set.csv")
+          .then(df => {
+
+            //   df['AAPL.Open'].plot("div1").box() //makes a box plot
+
+               df.plot("div2").table() //display csv as table
+
+            //   new_df = df.setIndex({ column: "Date", drop: true }); //resets the index to Date column
+            //   new_df.head().print() //
+            //   new_df.plot("div3").line({
+            //       config: {
+            //           columns: ["AAPL.Open", "AAPL.High"]
+            //       }
+            //   })  //makes a timeseries plot
+
+          }).catch(err => {
+              console.log(err);
+          })        
+
+
+        async function main(){
+            let pyodide = await loadPyodide();
+            console.log(pyodide.runPython(`
+                import sys
+                sys.version
+            `));
+            pyodide.runPython("print(1 + 2)");
+        }
+        //main();
+    </script>
+
 </body>
 </html>
