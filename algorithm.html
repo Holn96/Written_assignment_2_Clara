@@ -11,40 +11,42 @@
 <body>
     <h1>Algorithm</h1>
 
-    <div id="div1"></div>
+    <table id="AlgorithmTable" style="width:100%; padding-left: 30px;" >
+        <tr>
+          <td style="width:50%">Algorithm:
+            <div>be populated soon</div>
+          </td>
+          <td style="width:50%">Result:
+            <li>to be populated soon</li>
+            
+            
+
+          </td>
+        </tr>
+    </table>
+
     <div id="div2"></div>
-    <div id="div3"></div>
 
     <script type="text/javascript">
-        dfd.readCSV("./cleaned_data_set.csv")
-          .then(df => {
 
-            //   df['AAPL.Open'].plot("div1").box() //makes a box plot
-
-               df.plot("div2").table() //display csv as table
-
-            //   new_df = df.setIndex({ column: "Date", drop: true }); //resets the index to Date column
-            //   new_df.head().print() //
-            //   new_df.plot("div3").line({
-            //       config: {
-            //           columns: ["AAPL.Open", "AAPL.High"]
-            //       }
-            //   })  //makes a timeseries plot
-
-          }).catch(err => {
-              console.log(err);
-          })        
-
+        // dfd.readCSV("/dataset/cleaned_data_set.csv")
+        //   .then(df => {
+        //        df.plot("div2").table() //display csv as table
+        //   }).catch(err => {
+        //       console.log(err);
+        //   })        
 
         async function main(){
-            let pyodide = await loadPyodide();
-            console.log(pyodide.runPython(`
-                import sys
-                sys.version
-            `));
-            pyodide.runPython("print(1 + 2)");
+          let pyodide = await loadPyodide();
+          // data = pyodide.read_csv('/dataset/cleaned_data_set.csv')
+          // console.log(data.head())
+          console.log(pyodide.runPython(`
+              import sys
+              sys.version
+          `));
+          pyodide.runPython("print(1 + 2)");
         }
-        //main();
+        main();
     </script>
 
 </body>

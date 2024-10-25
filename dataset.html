@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dataset</title>
     <link rel="stylesheet" href="styles_dataset.css">
 </head>
 <body>
-    <h1>Dataset</h1>
-    <div>
+    <h1>Cleaned Dataset</h1>
+   
+    
+    
+    <div id="cleaned_data_set"> </div>
+    <div id="uncleaned_data_set"> </div>
+    
+    <!-- <div>
         <table style="width:100%">
             <caption>Table 1</caption>
             <tr>
@@ -41,9 +49,46 @@
             </tr>
 
           </table>
-        </div>
+        </div> -->
         
-      
-       
+        <script type="text/javascript">
+          dfd.readCSV("/dataset/cleaned_data_set.csv")
+            .then(df => {
+  
+                 //df['AAPL.Open'].plot("div1").box() //makes a box plot
+  
+                 df.plot("cleaned_data_set").
+                 table()                  //display csv as table
+                 
+  
+              //   new_df = df.setIndex({ column: "Date", drop: true }); //resets the index to Date column
+              //   new_df.head().print() //
+              //   new_df.plot("div3").line({
+              //       config: {
+              //           columns: ["AAPL.Open", "AAPL.High"]
+              //       }
+              //   })  //makes a timeseries plot
+  
+            }).catch(err => {
+                console.log(err);
+            })        
+  
+  
+          async function main(){
+              let pyodide = await loadPyodide();
+              console.log(pyodide.runPython(`
+                  import sys
+                  sys.version
+              `));
+              pyodide.runPython("print(1 + 2)");
+          }
+          //main();
+      </script>      
+
+ <table>
+  <tr><td>Data files:</td></tr>
+  <tr><td><a href="./dataset/cleaned_data_set.csv">cleaned_data_set.csv</a></td></tr>
+  <tr><td><a href="./dataset/uncleaned_data_set.csv">uncleaned_data_set.csv</a></td></tr>
+</table>       
 </body>
 </html>
