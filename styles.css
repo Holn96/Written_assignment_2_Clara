@@ -2,14 +2,13 @@ body {
     border
 }
 
-h1 {
-    color: black;
+h1 { color: black;
     font-size: 30px;
     text-decoration: none;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
     text-align: center;
     font-weight: lighter;
-  }
+}
 
 ul {
     list-style-type: none;
@@ -27,7 +26,6 @@ ul {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
     font-weight: lighter; 
   }
-  
   li a:not(.active) { }
 
   li a:hover:not(.active) { 
