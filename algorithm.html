@@ -22,12 +22,61 @@
   
     
 
-    <table id="AlgorithmTable" style="width:100%; padding-left: 30px;" >
+    <table id="AlgorithmTable" style="width:100%; padding-left: 30px; font-family: consolas;" >
       <tr>
-        <td style="width:50%">
-          <h1>Algorithm</h1>
+        <td style="width:50%; vertical-align:top; ">
+            <h1>Algorithm</h1>
+            <table id="AlgoTable" border="1"> 
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <body>
+                                <md-block>
+                                    >##### SET ParsetAggregatedData = CALL processCSV
+                                    >##### SET AggregatedData = CALL generateTable (ParsetAggregatedData)
+                                    >##### CONVERT aggregatedData to JSON string 
+                                    >##### PARSE the JSON string back to data object 
+                                    >##### CALL generateTable with data object
+                                    ---
+                                    >####   FUNCTION processCSV 
+                                    >>#####     FETCH the CSV file 
+                                    >>#####     CONVERT the response to text 
+                                    >>#####     SET PARSEDTEXT = PARSE the CSV text using PapaParse
+                                    >>#####     SET AggregatedData = CALL aggregatedData (PARSEDTEXT)
+                                    >>#####     Return  AggregatedData
+                                    ---
+                                    >####   Function aggregateData(data):
+                                    >>####    SET groupedData to empty dictionary
+                                    >>####    For row=0 To data.length:
+                                    >>>####        SET bookName from row.BookName
+                                    >>>####        SET OrderStatus from row.OrderStatus
+                                    >>>####        SET text_ with the value of groupedData at OrderStatus
+                                    >>>####        If (bookName is not in groupedData):
+                                    >>>>#####           Set groupedData[bookName] to 0
+                                    >>>####        EndIf
+                                    >>>####        If (OrderStatus is 'Returned'):
+                                    >>>>#####            Increment groupedData[bookName] by 1
+                                    >>>####        EndIf
+                                    >>####    EndFor
+                                    >>####    Return groupedData
+                                    ---
+                                    >#### FUNCTION generateTable(data):
+                                    >>#### For book=0 in data:
+                                    >>>####     Add book row into tableBody
+                                    >>>####     Add cell with book name
+                                    >>>####     Add cell with book total
+                                    >>#### EndFor                                    
+                                </md-block>
+                            </body>
+                        </td>
+                    </tr>
+                </tbody>
+                <script type="module" src="https://md-block.verou.me/md-block.js"></script>        
+            </table>
         </td>
-        <td style="width:50%">Result:
+        <td style="width:50%">
           <h1>Books Table</h1> 
           <table id="booksTable" border="1"> 
               <thead>
@@ -44,7 +93,7 @@
 
         </td>
       </tr>
-  </table>
+    </table>
     <script type="text/javascript">
       //processCSV();
     </script>
@@ -77,7 +126,17 @@
         }
 
 
-        function generateTable(data) { const tableBody = document.getElementById('booksTable').getElementsByTagName('tbody')[0]; for (let book in data) { const row = tableBody.insertRow(); const cell1 = row.insertCell(0); const cell2 = row.insertCell(1); cell1.innerText = book; cell2.innerText = data[book]; } }
+        function generateTable(data) { 
+            const tableBody = document.getElementById('booksTable').getElementsByTagName('tbody')[0];
+            for (let book in data) { 
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                cell1.innerText = book;
+                cell2.innerText = data[book];
+            } 
+        }
+
         function aggregateData(data) {
             const groupedData = data.reduce((acc, row) => {
                 const bookName = row.BookName;
