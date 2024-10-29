@@ -1,50 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.3/full/pyodide.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algorithm</title>
-    <link rel="stylesheet" href="./styles.css">
+    <title>CSV Processor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
-    <h1>Algorithm</h1>
+  
+    
 
-    <div id="div1"></div>
-    <div id="div2"></div>
-    <div id="div3"></div>
+    <table id="AlgorithmTable" style="width:100%; padding-left: 30px;" >
+      <tr>
+        <td style="width:50%">
+          <h1>Algorithm</h1>
+        </td>
+        <td style="width:50%">Result:
+          <h1>Books Table</h1> 
+          <table id="booksTable" border="1"> 
+              <thead>
+                   <tr>
+                   <th>Book</th>
+                   <th>Count</th>
+               </tr>
+               </thead>
+               <tbody>
+              </tbody>
+          </table>
+          
+          
 
+        </td>
+      </tr>
+  </table>
     <script type="text/javascript">
-        dfd.readCSV("./cleaned_data_set.csv")
-          .then(df => {
-
-            //   df['AAPL.Open'].plot("div1").box() //makes a box plot
-
-               df.plot("div2").table() //display csv as table
-
-            //   new_df = df.setIndex({ column: "Date", drop: true }); //resets the index to Date column
-            //   new_df.head().print() //
-            //   new_df.plot("div3").line({
-            //       config: {
-            //           columns: ["AAPL.Open", "AAPL.High"]
-            //       }
-            //   })  //makes a timeseries plot
-
-          }).catch(err => {
-              console.log(err);
-          })        
-
-
-        async function main(){
-            let pyodide = await loadPyodide();
-            console.log(pyodide.runPython(`
-                import sys
-                sys.version
-            `));
-            pyodide.runPython("print(1 + 2)");
-        }
-        //main();
+      //processCSV();
     </script>
 
+    <script>
+        async function processCSV() {
+            try {
+                const response = await fetch('./dataset/cleaned_data_set0.csv');
+                const csvText = await response.text();
 
+                Papa.parse(csvText, {
+                    header: true,
+                    dynamicTyping: true,
+                    complete: function(results) {
+                        const data = results.data;
+                        const aggregatedData = aggregateData(data);
+                        var t_ = JSON.stringify(aggregatedData, null, 2);
+                        //document.getElementById('result').textContent = t_;
+                        const data_ = JSON.parse(t_);  
+                        generateTable(data_);
+                        
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error fetching the CSV file:', error);
+            }
+
+
+        }
+
+
+        function generateTable(data) { const tableBody = document.getElementById('booksTable').getElementsByTagName('tbody')[0]; for (let book in data) { const row = tableBody.insertRow(); const cell1 = row.insertCell(0); const cell2 = row.insertCell(1); cell1.innerText = book; cell2.innerText = data[book]; } }
+        function aggregateData(data) {
+            const groupedData = data.reduce((acc, row) => {
+                const bookName = row.BookName;
+                const OrderStatus = row.OrderStatus;
+                var text_ = acc[OrderStatus];
+                if (!acc[bookName] ) {
+                    acc[bookName] = 0;
+                }
+                if (row.OrderStatus == 'Returned'){
+                    acc[bookName] += 1;
+                }
+                return acc;
+            }, {});
+
+            return groupedData;
+        }
+
+        processCSV();
+    </script>
+</body>
+</html>
