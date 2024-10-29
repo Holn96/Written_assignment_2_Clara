@@ -1,5 +1,6 @@
-body { 
-    border
+body { background-image: url("pexels-stywo-1054218.jpg"); background-repeat: 
+  no-repeat; background-size: cover ;
+    
 }
 
 h1 {
@@ -13,7 +14,7 @@ h1 {
 
 ul {
     list-style-type: none;
-    background-color: rgb(138, 216, 190);
+    background-color: whitesmoke;
     overflow: hidden;
     size: 20px;
   }
@@ -31,11 +32,11 @@ ul {
   li a:not(.active) { }
 
   li a:hover:not(.active) { 
-    background-color: rgb(88, 154, 132);
+    background-color: rgb(105, 169, 190);
     
 }
  
-  .active { color: rgb(138, 216, 190); background-color: black;}
+  .active { color: rgb(115, 195, 221); background-color: rgb(37, 46, 63);}
 
 p {
     color: black;
@@ -44,4 +45,6 @@ p {
     padding-top:20px; 
     padding-left:40px;
 }
+
+rgb(138, 216, 190);
 
