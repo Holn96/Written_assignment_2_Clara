@@ -34,11 +34,8 @@
                         <td>
                             <body>
                                 <md-block>
-                                    >##### SET ParsetAggregatedData = CALL processCSV
-                                    >##### SET AggregatedData = CALL generateTable (ParsetAggregatedData)
-                                    >##### CONVERT aggregatedData to JSON string 
-                                    >##### PARSE the JSON string back to data object 
-                                    >##### CALL generateTable with data object
+                                    >##### CALL processCSV
+                                
                                     ---
                                     >####   FUNCTION processCSV 
                                     >>#####     FETCH the CSV file 
@@ -50,9 +47,8 @@
                                     >####   Function aggregateData(data):
                                     >>####    SET groupedData to empty dictionary
                                     >>####    For row=0 To data.length:
-                                    >>>####        SET bookName from row.BookName
-                                    >>>####        SET OrderStatus from row.OrderStatus
-                                    >>>####        SET text_ with the value of groupedData at OrderStatus
+                                    >>>####        SET bookName to row.BookName
+                                    >>>####        SET OrderStatus to row.OrderStatus
                                     >>>####        If (bookName is not in groupedData):
                                     >>>>#####           Set groupedData[bookName] to 0
                                     >>>####        EndIf
@@ -82,7 +78,7 @@
               <thead>
                    <tr>
                    <th>Book</th>
-                   <th>Count</th>
+                   <th>Number of Returns</th>
                </tr>
                </thead>
                <tbody>
@@ -94,9 +90,6 @@
         </td>
       </tr>
     </table>
-    <script type="text/javascript">
-      //processCSV();
-    </script>
 
     <script>
         async function processCSV() {
