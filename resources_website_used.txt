@@ -26,3 +26,6 @@ https://www.papaparse.com/
 https://www.w3schools.com/css/css_table.asp
 https://www.w3schools.com/html/html_tables.asp
 https://www.w3schools.com/js/js_graphics_plotly.asp
+https://www.w3schools.com/tags/att_a_href.asp
+https://www.w3schools.com/tags/tag_comment.asp
+https://stackoverflow.com
