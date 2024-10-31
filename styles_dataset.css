@@ -50,3 +50,6 @@ h1 { color: black;
     text-align: center;
    }
   
+.links { padding-left : 5%}
+
+.links_header { font-weight : bold }
