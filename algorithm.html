@@ -39,35 +39,37 @@
                             <body>
                                 <md-block>
                                     >##### CALL processCSV
-                                
+                              
                                     ---
                                     >####   FUNCTION processCSV 
                                     >>#####     FETCH the CSV file 
                                     >>#####     CONVERT the response to text 
-                                    >>#####     SET PARSEDTEXT = PARSE the CSV text using PapaParse
-                                    >>#####     SET AggregatedData = CALL aggregatedData (PARSEDTEXT)
+                                    >>#####     SET PARSEDTEXT to PARSE the CSV text using PapaParse
+                                    >>#####     SET AggregatedData to CALL aggregatedData (PARSEDTEXT)
                                     >>#####     Return  AggregatedData
                                     ---
                                     >####   Function aggregateData(data):
                                     >>####    SET groupedData to empty dictionary
-                                    >>####    For row=0 To data.length:
+                                    >>####    SET row to 0
+                                    >>####    WHILE row < LEN(data):
                                     >>>####        SET bookName to row.BookName
                                     >>>####        SET OrderStatus to row.OrderStatus
                                     >>>####        If (bookName is not in groupedData):
                                     >>>>#####           Set groupedData[bookName] to 0
                                     >>>####        EndIf
                                     >>>####        If (OrderStatus is 'Returned'):
-                                    >>>>#####            Increment groupedData[bookName] by 1
+                                    >>>>#####            SET groupedData[bookName] to groupedData[bookName]+1
                                     >>>####        EndIf
-                                    >>####    EndFor
+                                    >>>####        set row to row + 1
                                     >>####    Return groupedData
                                     ---
                                     >#### FUNCTION generateTable(data):
-                                    >>#### For book=0 in data:
+                                    >>#### SET book to 0
+                                    >>#### WHILE book < LEN(data):
                                     >>>####     Add book row into tableBody
                                     >>>####     Add cell with book name
                                     >>>####     Add cell with book total
-                                    >>#### EndFor                                    
+                                    >>>####     SET book to book + 1                                   
                                 </md-block>
                             </body>
                         </td>
