@@ -1,6 +1,6 @@
 https://blog.tensorflow.org/2020/08/introducing-danfo-js-pandas-like-library-in-javascript.html
 https://community.plotly.com/t/table-header-column-names/14549
-https://copilot.microsoft.com/
+https://copilot.microsoft.com/ (only used for the search and learning purposes while implementing the alogrithm. Nothing else.)
 https://danfo.jsdata.org/api-reference/groupby/groupby.col
 https://danfo.jsdata.org/api-reference/input-output/danfo.read_csv
 https://danfo.jsdata.org/getting-started
